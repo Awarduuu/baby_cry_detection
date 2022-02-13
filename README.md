@@ -59,6 +59,12 @@ From your command line go to baby_cry_detection folder and run the following pyt
 
 ##### TRAINING
 
+1. ~/baby_cry_detection 에서 pip install . 실행
+2. ~/baby_cry_detection 에서 output 파일 생성
+3. ~/baby_cry_detection/output에서 dataset, model 파일 생성
+4. 이하 스텝 진행
+5. 이래도 안되면 train_set.py line 22에서 "{}/../../../output/dataset/" 경로를 "{}/../../output/dataset/"로 바꾸기 + train_model.py line 18 "{}/../../../output/dataset/" 경로를 "{}/../../output/dataset/"로 바꾸기 + line 24 "{}/../../../output/model/" 경로를 "{}/../../output/model/"로 바꾸기
+
 This step allows you to train the model. Please note that the model itself is not provided.
 
 ```

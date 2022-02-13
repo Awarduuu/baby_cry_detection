@@ -13,12 +13,22 @@ from baby_cry_detection.pc_methods.train_classifier import TrainClassifier
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--load_path',
-                        default='{}/../../../output/dataset/'.format(os.path.dirname(os.path.abspath(__file__))))
-    parser.add_argument('--save_path',
-                        default='{}/../../../output/model/'.format(os.path.dirname(os.path.abspath(__file__))))
-    parser.add_argument('--log_path',
-                        default='{}/../../'.format(os.path.dirname(os.path.abspath(__file__))))
+    parser.add_argument(
+        "--load_path",
+        default="{}/../../output/dataset/".format(
+            os.path.dirname(os.path.abspath(__file__))
+        ),
+    )
+    parser.add_argument(
+        "--save_path",
+        default="{}/../../output/model/".format(
+            os.path.dirname(os.path.abspath(__file__))
+        ),
+    )
+    parser.add_argument(
+        "--log_path",
+        default="{}/../../".format(os.path.dirname(os.path.abspath(__file__))),
+    )
 
     # Arguments
     args = parser.parse_args()
@@ -27,37 +37,40 @@ def main():
     log_path = os.path.normpath(args.log_path)
 
     # Set up logging
-    logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
-                        datefmt='%Y-%m-%d %I:%M:%S %p',
-                        filename=os.path.join(log_path, 'logs_pc_methods_model.log'),
-                        filemode='w',
-                        level=logging.DEBUG)
+    logging.basicConfig(
+        format="%(asctime)s - %(levelname)s - %(message)s",
+        datefmt="%Y-%m-%d %I:%M:%S %p",
+        filename=os.path.join(log_path, "logs_pc_methods_model.log"),
+        filemode="w",
+        level=logging.DEBUG,
+    )
 
     # TRAIN MODEL
 
-    logging.info('Calling TrainClassifier')
+    logging.info("Calling TrainClassifier")
 
-    X = np.load(os.path.join(load_path, 'dataset.npy'))
-    y = np.load(os.path.join(load_path, 'labels.npy'))
+    X = np.load(os.path.join(load_path, "dataset.npy"))
+    y = np.load(os.path.join(load_path, "labels.npy"))
 
     train_classifier = TrainClassifier(X, y)
     performance, parameters, best_estimator = train_classifier.train()
 
     # SAVE
 
-    logging.info('Saving model...')
+    logging.info("Saving model...")
 
     # Save performances
-    with open(os.path.join(save_path, 'performance.json'), 'w') as fp:
+    with open(os.path.join(save_path, "performance.json"), "w") as fp:
         json.dump(performance, fp)
 
     # Save parameters
-    with open(os.path.join(save_path, 'parameters.json'), 'w') as fp:
+    with open(os.path.join(save_path, "parameters.json"), "w") as fp:
         json.dump(parameters, fp)
 
     # Save model
-    with open(os.path.join(save_path, 'model.pkl'), 'wb') as fp:
+    with open(os.path.join(save_path, "model.pkl"), "wb") as fp:
         pickle.dump(best_estimator, fp)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
